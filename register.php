@@ -11,7 +11,7 @@ if (isset($_POST["imeKorisnika"])) {
         $SQL.= $_POST["prezimeKorisnika"] . "', '";
         $SQL.= $_POST["jmbgKorisnika"] . "', '";
         $SQL.= $_POST["emailKorisnika"] . "', '";
-        $SQL.= $_POST["lozinkaKorisnika"] . "', 'učenik');";
+        $SQL.= md5($_POST["lozinkaKorisnika"]) . "', 'učenik');";
         $rezultat = mysqli_query($konekcija, $SQL);
     }
 }
@@ -72,6 +72,8 @@ if (isset($_POST["imeKorisnika"])) {
                         <label>Ponovite Vašu lozinku:</label>
                         <input type="password" class="form-control" name="pLozinkaKorisnika" placeholder="Ponovite Vašu lozinku" />
                     </div>
+                    <p>Imate račun? Prijavite se <a  href="login.php">ovdje</a>.</p>
+                    
                     <button type="submit" class="btn btn-primary">Pošalji obrazac</button>
                 </form>
             </div>
