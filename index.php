@@ -1,19 +1,10 @@
 <?php
-session_start();
-if (!isset($_SESSION["token"])) header("Location: login.php");
-
 include("model/db.php"); 
 include("model/korisnik.class.php");
+/* nova prijava korisnika */
+if (!Korisnik::jePrijavljen()) header("Location: login.php");
+$prijavljeni_korisnik = Korisnik::$prijavljeniKorisnik;
 
-if (isset($_GET["akcija"]) && $_GET["akcija"] == "pobrisi") {
-  Korisnik::pobrisi($_GET["id"]);
-}
-
-$id = $_SESSION["token"];
-$upit = "SELECT * FROM korisnik WHERE ID=".$id;
-
-$rezultat = mysqli_query($konekcija, $upit);
-$prijavljeni_korisnik = mysqli_fetch_assoc($rezultat);
 $naslov = "Dobrodošli na sustav " . $prijavljeni_korisnik["ime"]. " " .$prijavljeni_korisnik["prezime"];
 include("static/header.php");
 ?>
@@ -49,7 +40,7 @@ include("static/header.php");
               
               <div class="btn-group" role="group" aria-label="Basic example">
                 <a title="Uredite korisnika" data-toggle="tooltip" data-placement="top"  type="button" class="btn btn-sm btn-info" ref="<?= $korisnik["ID"] ?>" href="users/edit.php" onclick="dohvati_korisnika(event);"><i class="fas fa-edit"></i></a>
-                <a title="Pobrišite korisnika" data-toggle="tooltip" data-placement="top"  type="button"  class="btn btn-sm btn-danger delete-user" href="index.php?akcija=pobrisi&id=<?= $korisnik["ID"] ?>"><i class="fas fa-trash"></i></a>
+                <a title="Pobrišite korisnika" data-toggle="tooltip" data-placement="top"  type="button"  class="btn btn-sm btn-danger delete-user" href="users/delete.php?id=<?= $korisnik["ID"] ?>"><i class="fas fa-trash"></i></a>
               </div>
               </td>
             </tr>
