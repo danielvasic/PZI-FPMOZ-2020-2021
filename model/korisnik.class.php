@@ -2,11 +2,36 @@
 
 class Korisnik {
 
+    public static function spasi ($korisnik){
+        global $konekcija;
+        $ime = htmlspecialchars(mysqli_real_escape_string($konekcija, $korisnik["imeKorisnika"]));
+        $prezime = htmlspecialchars(mysqli_real_escape_string($konekcija, $korisnik["prezimeKorisnika"]));
+        $JMBG = htmlspecialchars(mysqli_real_escape_string($konekcija, $korisnik["jmbgKorisnika"]));
+        $email = htmlspecialchars(mysqli_real_escape_string($konekcija, $korisnik["emailKorisnika"]));
+        $lozinka = md5($korisnik["lozinkaKorisnika"]);
+        $uloga = htmlspecialchars(mysqli_real_escape_string($konekcija, $korisnik["ulogaKorisnika"]));
+        if (isset($korisnik["idKorisnika"]) && $korisnik["idKorisnika"] == "")
+            $upit = "INSERT INTO korisnik VALUES (null, '".$ime."', '".$prezime."', '".$JMBG."', '".$email."', '".$lozinka."', '".$uloga."');";
+        else
+            if ($lozinka != md5(""))
+                $upit = "UPDATE korisnik SET ime='".$ime."', prezime='".$prezime."', JMBG='".$JMBG."', email='".$email."', lozinka='".$lozinka."', uloga='".$uloga."' WHERE id=".$korisnik["idKorisnika"].";";
+            else
+                $upit = "UPDATE korisnik SET ime='".$ime."', prezime='".$prezime."', JMBG='".$JMBG."', email='".$email."', uloga='".$uloga."' WHERE id=".$korisnik["idKorisnika"].";";
+        return mysqli_query($konekcija, $upit);
+    }
+
     public static function pobrisi($id){
         global $konekcija;
         $id = intval($id);
         $upit = "DELETE FROM korisnik WHERE ID=" . $id;
         return mysqli_query($konekcija, $upit);
+    }
+
+    public static function daj ($id) {
+        global $konekcija;
+        $upit = "SELECT * FROM korisnik WHERE ID=".$id;
+        $rezultat = mysqli_query($konekcija, $upit);
+        return mysqli_fetch_assoc($rezultat);
     }
 
     public static function dajSve () {
