@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require("db.php");
+require("model/db.php");
 
 if (isset($_POST["emailKorisnika"])){
     if ($_POST["emailKorisnika"] == "" || $_POST["lozinkaKorisnika"] == ""){
@@ -21,26 +21,9 @@ if (isset($_POST["emailKorisnika"])){
         }
     }
 }
+$naslov = "Prijava na sustav";
+include("static/header.php");
 ?>
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-    <title>Prijava na sustav e-dnevnik!</title>
-    <style>
-        html, body {
-            height:100% !important;
-        }
-    </style>
-  </head>
-  <body>
     <div class="container h-100">
         <div class="row align-items-center h-100">
             <div class="col shadow p-5">
@@ -64,7 +47,6 @@ if (isset($_POST["emailKorisnika"])){
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  </body>
-</html>
+<?php
+include("static/footer.php");
+?>
